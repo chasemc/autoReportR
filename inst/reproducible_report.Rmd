@@ -1,0 +1,45 @@
+---
+title: "Reproducible Report"
+author: "Chase Clark"
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r, echo=FALSE}
+# Load packages
+library(ggplot2)
+```
+Preferably use :: to specify namespace, rather than calling library(). This is will make it easier for others to understand what functions come from which package (and easier for you in 6-months). For some packages I still use library() because it's much eassier (eg ggplot2)
+
+More info on the data here:
+https://www.glerl.noaa.gov/metdata/chi/metadata.html
+
+Retrieve results using tested functions
+```{r}
+# Get url:
+yesterday_url <- autoReportR::urlGenerator()
+yesterday_data <- autoReportR::readNoaa(yesterday_url)
+```
+
+Quick peek:
+```{r echo=FALSE}
+head(yesterday_data)
+```
+
+Simple plot
+```{r echo=FALSE}
+ggplot(yesterday_data,
+       aes(x = `C`,
+           y = `X.`)) + 
+    geom_point() + 
+    geom_smooth() +
+  xlab("AirTemp ") + 
+  ylab("Relative Humidity")
+```
+
+Looks weird huh?
+
+Can you guess why? (hint: probably only wrong in winter)

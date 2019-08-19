@@ -1,0 +1,43 @@
+language: R
+cache: packages
+os:
+- linux
+repos:
+  CRAN: https://cran.r-project.org/
+addons:
+  apt:
+    packages:
+    - libnetcdf-dev
+    - netcdf-bin
+    - libhdf5-dev
+r_packages:
+  - covr
+
+after_success:
+  - Rscript -e 'covr::codecov()'
+  - Rscript -e "remotes::install_github('chasemc/autoReportR')"
+  - Rscript -e "autoReportR::createReport()"
+  - Rscript -e 'library(covr); codecov()'
+
+
+before_deploy:
+  - export TRAVIS_TAG="release-$(git rev-parse --short ${TRAVIS_COMMIT})"
+  - echo "$TRAVIS_TAG" "$TRAVIS_COMMIT"
+  - git config --local user.name "I'm the CD Bot"
+  - git config --local user.email "nobody@nobody.com"
+  - if [ $TRAVIS_EVENT_TYPE == "cron" ]; then $TRAVIS_TAG=$(date +"%m_%d_%Y"); fi
+  - git tag "$TRAVIS_TAG" "$TRAVIS_COMMIT"
+  - echo "$TRAVIS_TAG" "$TRAVIS_COMMIT"
+  
+
+
+deploy:
+  provider: releases
+  tag_name: $TRAVIS_TAG
+  api_key:
+    secure: $GITHUB_TOKEN
+  file: 'reproducible_report.pdf'
+  skip_cleanup: true
+  on:
+    tags: false
+    branch: master
