@@ -1,0 +1,11 @@
+resources:
+  repositories:
+    - repository: autoReportR
+      type: github
+      name: chasemc/autoReportR
+      endpoint: chasemc
+    - trigger:
+        branches:
+        - master
+jobs:
+  - template: azure-tidyverse.yml@autoReportR
