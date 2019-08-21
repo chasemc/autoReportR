@@ -1,9 +1,10 @@
-- task: GithubRelease@0
-  displayName: 'Create GitHub Release'
-  inputs:
-    gitHubConnection: chasemc
-    repositoryName: chasemc/autoReportR
-    tagSource: manual
-    tag: $(Build.BuildNumber)
-    assets: |
-         $(Build.ArtifactStagingDirectory)/*.pdf
+- steps:
+  -task: GithubRelease@0
+    displayName: 'Create GitHub Release'
+    inputs:
+      gitHubConnection: chasemc
+      repositoryName: chasemc/autoReportR
+      tagSource: manual
+      tag: $(Build.BuildNumber)
+      assets: |
+           $(Build.ArtifactStagingDirectory)/*.pdf
