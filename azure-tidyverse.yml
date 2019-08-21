@@ -29,9 +29,10 @@ jobs:
     steps:
       - template: templates/r-setup-linux.yml
       - template: templates/pkg-workflow.yml
-      - template: templates/github-release.yml
         parameters:
           coverage: false
+      - template: templates/github-release.yml
+
 
 
   - job: 'macOS'
@@ -46,7 +47,6 @@ jobs:
       - template: templates/pkg-workflow.yml
         parameters:
           coverage: ${{parameters.coverage}}
-      - template: templates/eshine.yml
       - template: templates/github-release.yml
 
   - job: 'Windows'
@@ -63,6 +63,5 @@ jobs:
           args: "c('--no-manual', '--no-multiarch')"
           coverage: false
           cache: false
-      - template: templates/eshine.yml
       - template: templates/github-release.yml
 
