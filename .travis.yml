@@ -41,4 +41,4 @@ deploy:
   on:
     tags: false
     branch: master
-    condition: $TRAVIS_COMMIT_MESSAGE = "travis_commit"
+    condition: $TRAVIS_COMMIT_MESSAGE = "build report"
