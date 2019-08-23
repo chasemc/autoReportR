@@ -1,17 +1,28 @@
 language: R
+
+
 cache: packages
+
+
 os:
 - linux
+
+
 repos:
   CRAN: https://cran.r-project.org/
+  
+  
 addons:
   apt:
     packages:
     - libnetcdf-dev
     - netcdf-bin
     - libhdf5-dev
+    
+    
 r_packages:
   - covr
+
 
 after_success:
   - Rscript -e 'covr::codecov()'
@@ -25,15 +36,10 @@ before_deploy:
   - echo "$TRAVIS_TAG" "$TRAVIS_COMMIT"
   - git config --local user.name "I'm the CD Bot"
   - git config --local user.email "nobody@nobody.com"
-  - | 
-    if [ "$TRAVIS_EVENT_TYPE" == "cron" ]; then
-    $TRAVIS_TAG="daily_cron_job"
-    fi
   - git tag "$TRAVIS_TAG" "$TRAVIS_COMMIT"
   - echo "$TRAVIS_TAG" "$TRAVIS_COMMIT"
   
-
-
+  
 deploy:
   provider: releases
   tag_name: $TRAVIS_TAG
@@ -46,15 +52,3 @@ deploy:
     branch: master
     condition: $TRAVIS_COMMIT_MESSAGE = "build report"
     
-deploy:
-  provider: releases
-  tag_name: $TRAVIS_TAG
-  api_key:
-    secure: $GITHUB_TOKEN
-  file: 'reproducible_report.pdf'
-  skip_cleanup: true
-  overwrite: true
-  on:
-    tags: false
-    branch: master
-    condition: $TRAVIS_EVENT_TYPE = "cron"
