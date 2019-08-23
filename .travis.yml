@@ -37,7 +37,7 @@ before_deploy:
   - git config --local user.name "I'm the CD Bot"
   - git config --local user.email "nobody@nobody.com"
   - git tag "$TRAVIS_TAG" "$TRAVIS_COMMIT"
-  - echo "$TRAVIS_TAG" "$TRAVIS_COMMIT"
+  - echo "$TRAVIS_TAG" "$TRAVIS_COMMIT" 
   
   
 deploy:
