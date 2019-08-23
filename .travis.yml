@@ -25,7 +25,10 @@ before_deploy:
   - echo "$TRAVIS_TAG" "$TRAVIS_COMMIT"
   - git config --local user.name "I'm the CD Bot"
   - git config --local user.email "nobody@nobody.com"
-  - if [ "$TRAVIS_EVENT_TYPE" == "cron" ]; then $TRAVIS_TAG="daily_cron_job"; fi
+  - | 
+    if [ "$TRAVIS_EVENT_TYPE" == "cron" ]; then
+    $TRAVIS_TAG="daily_cron_job"
+    fi
   - git tag "$TRAVIS_TAG" "$TRAVIS_COMMIT"
   - echo "$TRAVIS_TAG" "$TRAVIS_COMMIT"
   
