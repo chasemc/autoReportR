@@ -8,3 +8,4 @@ https://stackoverflow.com/questions/12343452/how-to-publish-artifacts-in-travis-
 [![Coverage status](https://codecov.io/gh/chasemc/autoReportR/branch/master/graph/badge.svg)](https://codecov.io/github/chasemc/autoReportR?branch=master)  
   
  
+ 
